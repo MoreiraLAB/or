@@ -245,8 +245,7 @@ distance_value = 8
 
 ###Run for all .csv "weinstein" files in the folder--------------###
 ###Do not forget to erase the output_interacts file--------------###
-#for(file in list.files(getwd(), pattern = glob2rx('weinstein_inter_chain_*.csv'))){
-for(file in list.files(getwd(), pattern = glob2rx('adapted_partner_weinstein_inter_chain_*.csv'))){
+for(file in list.files(getwd(), pattern = glob2rx('weinstein_inter_chain_*.csv'))){
   interact <- cutoff_table_builder(distance_value,file)
   write.table(matrix(interact,nrow = 1),'output_interacts.csv', append = TRUE, sep =';',col.names = FALSE,row.names = FALSE)
   partner_name <- strsplit(strsplit(file,"-")[[1]][2],".csv")[[1]][1]

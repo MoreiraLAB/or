@@ -1,6 +1,15 @@
 #install.packages("ggplot2")
 #install.packages("svglite")
-library(ggplot2)
+###----------------------------------------------------------###
+###Script to generate scatteplots for interhelical distances-###
+###----------------------------------------------------------###
+
+###__author__ = "A.J. Preto"---------------------------------###
+###__email__ = "martinsgomes.jose@gmail.com"-----------------###
+###__group__ = "Data-Driven Molecular Design"----------------###
+###__group_leader__ = "Irina S. Moreira"---------------------###
+###__project__ = "GPCRs"-------------------------------------###
+
 setwd("C:/Users/marti/OneDrive/Desktop/silverio")
 change_header <- function(input_cols){
   col_names <- c()
@@ -42,7 +51,6 @@ iterate_files <- function(input_folder){
 }
 
 results <- "processed_results"
-#colors_vec <- c(rep("#1a1aff", 18),rep("#ff9933", 14),rep("#33ff33", 18),rep("#cc6666", 18))
 colors_vec <- c(rep("#1a1aff", 14),rep("#ff9933", 10),rep("#33ff33", 14),rep("#cc6666", 14))
 receptors_list <- c("DOR","KOR","MOR","NOP")
 color_index <- as.character(c("#1a1aff","#ff9933","#33ff33","#cc6666"))

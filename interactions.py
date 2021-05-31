@@ -103,15 +103,6 @@ def get_residues(model,chain,model_name, start_dict = {}):
                 except:
                     res_info = str(res_number + start_dict[model_name.split("-")[0]] - 1) + res_name
                     RES.append(res_info)
-    #else:
-    #    if partner_name[0] == "G":
-    #        opened_gpcrdb = process_gprot(partner_name)
-    #        residue_count = 1
-    #        for residue in model[chain].get_residues():
-    #            res_number = res_number + 1
-    #            res_name = residue.get_resname()
-    #            res_info = opened_gpcrdb[res_number] + res_name
-    #            RES.append(res_info)
     else:
         for residue in model[chain].get_residues():
             res_number = res_number + 1
@@ -184,7 +175,7 @@ def write_distance_table(contact_distance = 5.0):
             name = PROCESSED_RESULTS_FOLDER + "/weinstein_" + INTER_CHAIN_CA + "_" + files[0:-4]
             structure = Bio.PDB.PDBParser().get_structure(name,files)
             model = structure[0]
-            res_names_A = get_residues(model,"A",files, start_dict = {"DOR":34, "KOR":52, "MOR":62, "NOP":43})
+            res_names_A = get_residues(model,"A",files, start_dict = {"DOR": 34, "KOR": 52, "MOR": 62, "NOP": 43})
             res_names_B = get_residues(model,"B",files, start_dict = {"Gq_6OIJ": 6, "Gq_6DDF": 6, "Gssh": 8, "Gslo": 8, \
                                                                         "Arr2_6PWC": 6, "Arr3_6PWC": 7,"Arr2_6U1N": 5, "Arr3_6U1N": 6, \
                                                                         "G11_6OIJ": 6, "G14_6OIJ": 4, "G14_6DDF": 4, \

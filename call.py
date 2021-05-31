@@ -38,8 +38,8 @@ def call_all(circle_script, dynamics_script, interhelical_script, R_path = "Rscr
     import RMSD_calculation
     import interhelical
 
-    dynamics_graph_command = R_path + " " + dynamics_script
-    os.system(dynamics_graph_command)
+    #dynamics_graph_command = R_path + " " + dynamics_script
+    #os.system(dynamics_graph_command)
 
     interhelical_graph_command = R_path + " " + interhelical_script
     os.system(interhelical_graph_command)
@@ -49,7 +49,7 @@ def call_all(circle_script, dynamics_script, interhelical_script, R_path = "Rscr
 
 Rscript_circle = CIRCLE_GRAPH_R
 R_executable = R_PATH
-Rscript_dynamics = DYNAMICS_GRAPH_R
 Rscript_interhelical = INTERHELICAL_GRAPH_R
+#Rscript_dynamics = DYNAMICS_GRAPH_R
 call_all(Rscript_circle, Rscript_dynamics, Rscript_interhelical, R_path = R_executable, download_interface_data = False)
 
