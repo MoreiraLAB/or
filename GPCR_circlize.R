@@ -2,15 +2,14 @@
 ###Script to generate circular graphs from distance matrices-###
 ###----------------------------------------------------------###
 
-#install.packages("circlize")
-library(circlize)
-library(stringr)
 ###__author__ = "A.J. Preto"---------------------------------###
 ###__email__ = "martinsgomes.jose@gmail.com"-----------------###
 ###__group__ = "Data-Driven Molecular Design"----------------###
 ###__group_leader__ = "Irina S. Moreira"---------------------###
 ###__project__ = "GPCRs"-------------------------------------###
 
+library(circlize)
+library(stringr)
 circle_graph_builder <- function(distance,file_name,len,TM1,ICL1,TM2,TM3,ICL2,TM4,TM5,ICL3,TM6,TM7,H8,partner_info,partner_name){
   
   ###---Loading the table---###

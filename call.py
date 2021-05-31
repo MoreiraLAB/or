@@ -8,7 +8,7 @@ import os
 import csv
 import raw_parser
 import gpcr_variables
-from gpcr_variables import CIRCLE_GRAPH_R, R_PATH, DYNAMICS_GRAPH_R, FINAL_TABLE, \
+from gpcr_variables import CIRCLE_GRAPH_R, R_PATH, DYNAMICS_SCRIPT_R, FINAL_TABLE, \
                             INTERHELICAL_GRAPH_R
 
 __author__ = "A.J. Preto"
@@ -43,12 +43,13 @@ def call_all(circle_script, dynamics_script, interhelical_script, R_path = "Rscr
     circle_graph_command = R_path + " " + circle_script
     os.system(circle_graph_command)
 
-    #dynamics_graph_command = R_path + " " + dynamics_script
-    #os.system(dynamics_graph_command)
+    dynamics_graph_command = R_path + " " + dynamics_script
+    os.system(dynamics_graph_command)
 
 Rscript_circle = CIRCLE_GRAPH_R
 R_executable = R_PATH
 Rscript_interhelical = INTERHELICAL_GRAPH_R
-#Rscript_dynamics = DYNAMICS_GRAPH_R
-call_all(Rscript_circle, Rscript_dynamics, Rscript_interhelical, R_path = R_executable, download_interface_data = False)
+Rscript_dynamics = DYNAMICS_SCRIPT_R
+call_all(Rscript_circle, Rscript_dynamics, Rscript_interhelical, \
+                R_path = R_executable, download_interface_data = False)
 
