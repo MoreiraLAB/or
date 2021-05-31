@@ -35,17 +35,16 @@ def call_all(circle_script, dynamics_script, interhelical_script, R_path = "Rscr
     import SB_aligned
     import interactions
     import generate_summary
-    import RMSD_calculation
     import interhelical
-
-    #dynamics_graph_command = R_path + " " + dynamics_script
-    #os.system(dynamics_graph_command)
 
     interhelical_graph_command = R_path + " " + interhelical_script
     os.system(interhelical_graph_command)
 
     circle_graph_command = R_path + " " + circle_script
     os.system(circle_graph_command)
+
+    #dynamics_graph_command = R_path + " " + dynamics_script
+    #os.system(dynamics_graph_command)
 
 Rscript_circle = CIRCLE_GRAPH_R
 R_executable = R_PATH

@@ -16,12 +16,8 @@ library(ggsci)
 library(cowplot)
 library(svglite)
 
-setwd("/Users/cbarreto/Google Drive/WORK/OXR_PAPER/RESULTS/DYNAMIC_ANALYSIS")
-
 # Defining a few functions/constants --------------------------------------
 RUN_MODELS <- T
-
-FINAL_MODEL_PATH = "/Users/cbarreto/Google Drive/WORK/OXR_PAPER/RESULTS/FINAL_COMPLEXES/"
 
 #tm_idx_list object should be a list containing  a vector "start" 
 #containing the start of each TM and a vector "end" 
@@ -231,7 +227,7 @@ if (RUN_MODELS == TRUE) {
   gprot_fluc_fold_change$Partner <- sapply(gprot_fluc_fold_change$Complex,
                                            function(x) unlist(strsplit(x,'-'))[[2]])
   
-  save(gprot_bc_scores,gprot_fluc_fold_change,file = "gprot-dynamics.RData")
+  save(gprot_bc_scores,gprot_fluc_fold_change, file = "gprot-dynamics.RData")
 } else {
   load("gprot-dynamics.RData")
 }
@@ -428,6 +424,6 @@ final_plot_no_labels <- plot_grid(
             nrow = 1),
   labels = NULL,ncol = 1,
   rel_heights = c(1,1))
-final_plot_no_labels %>% ggsave(filename = "final-dynamics-no-label.svg",height = 6.5,width = 8,dpi = 600)
-final_plot_no_labels %>% ggsave(filename = "final-dynamics-no-label.pdf",height = 6.5,width = 8,dpi = 600)
-final_plot_no_labels %>% ggsave(filename = "final-dynamics-no-label.png",height = 6.5,width = 8,dpi = 600)
+final_plot_no_labels %>% ggsave(filename = "images/final-dynamics-no-label.svg",height = 6.5,width = 8,dpi = 600)
+final_plot_no_labels %>% ggsave(filename = "images/final-dynamics-no-label.pdf",height = 6.5,width = 8,dpi = 600)
+final_plot_no_labels %>% ggsave(filename = "images/final-dynamics-no-label.png",height = 6.5,width = 8,dpi = 600)

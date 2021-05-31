@@ -8,7 +8,8 @@ import os
 import csv
 import raw_parser
 import gpcr_variables
-from gpcr_variables import DEFAULT_FOLDER, RESULTS_FOLDER, PROCESSED_RESULTS_FOLDER, ALIGN_VECTORS, DIMERS
+from gpcr_variables import DEFAULT_FOLDER, RESULTS_FOLDER, \
+                            PROCESSED_RESULTS_FOLDER, ALIGN_VECTORS, DIMERS
 
 __author__ = "A.J. Preto"
 __email__ = "martinsgomes.jose@gmail.com"
@@ -38,7 +39,7 @@ def build_csv(input_file,seq,out_name):
                 else:
                     count = count + 1
     new_file = open(out_name,'w')
-    writer=csv.writer(new_file,delimiter = ';')
+    writer = csv.writer(new_file,delimiter = ';')
     writer.writerow(output_list)
     new_file.close()   
 

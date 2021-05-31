@@ -4,16 +4,12 @@ import sys
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
-import imp
 import toolz
 import time
 import os
-import shutil
 import requests
 from glob import glob
-import argparse
 from bs4 import BeautifulSoup
-import gpcr_variables
 from gpcr_variables import COCOMAPS_SUBMIT, COCOMAPS_OUTPUT, \
 							INTERPROSURF, DEFAULT_EMAIL, STRUCTURAL_FEATURES, \
 							INTERPROSURF_START, RESULTS_FOLDER, COCOMAPS_START
@@ -232,4 +228,4 @@ def wraper(in_folder,download_path):
 email_address = DEFAULT_EMAIL
 in_folder = os.getcwd()
 out_folder = in_folder + '/' + RESULTS_FOLDER
-wraper(in_folder,out_folder)
+wraper(in_folder, out_folder)

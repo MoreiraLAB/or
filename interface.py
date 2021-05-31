@@ -9,7 +9,8 @@ import os
 import csv
 import raw_parser
 import gpcr_variables
-from gpcr_variables import DEFAULT_FOLDER, ALIGN_VECTORS, DIMERS, PROCESSED_RESULTS_FOLDER
+from gpcr_variables import DEFAULT_FOLDER, ALIGN_VECTORS, \
+                            DIMERS, PROCESSED_RESULTS_FOLDER
 
 __author__ = "A.J. Preto"
 __email__ = "martinsgomes.jose@gmail.com"
@@ -76,7 +77,9 @@ def res_group(input_dict):
     acid_neg = ['Aspartate','Glutamate']
     non_pol_aro = ['Phenylalanine','Tyrosine','Tryptophan']
     list_of_groups = [non_pol_ali, pol_un, bas_pos, acid_neg, non_pol_aro]
-    new_dict = {'Non polar aliphatic':0,'Polar uncharged':0,'Basic positively charged':0,'Acid negatively charged':0,'Non polar aromatic':0}
+    new_dict = {'Non polar aliphatic': 0,'Polar uncharged': 0, \
+                'Basic positively charged':0,'Acid negatively charged': 0,\
+                'Non polar aromatic': 0}
     for group in list_of_groups:
         for res in group:
             if group == non_pol_ali:

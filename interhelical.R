@@ -10,7 +10,6 @@
 ###__group_leader__ = "Irina S. Moreira"---------------------###
 ###__project__ = "GPCRs"-------------------------------------###
 
-setwd("C:/Users/marti/OneDrive/Desktop/silverio")
 change_header <- function(input_cols){
   col_names <- c()
   for (name in input_cols){
