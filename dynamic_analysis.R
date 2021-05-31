@@ -3,7 +3,7 @@
 ###----------------------------------------------------------###
 
 ###__author__ = "J.G. Almeida & C.A. Barreto"----------------###
-###__email__ = "martinsgomes.jose@gmail.com"-----------------###
+###__email__ = "jose.​gcp.​almeida@gmail.​com"------------------###
 ###__group__ = "Data-Driven Molecular Design"----------------###
 ###__group_leader__ = "Irina S. Moreira"---------------------###
 ###__project__ = "GPCRs"-------------------------------------###
