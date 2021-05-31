@@ -9,7 +9,8 @@ import csv
 import raw_parser
 import gpcr_variables
 from gpcr_variables import CIRCLE_GRAPH_R, R_PATH, DYNAMICS_SCRIPT_R, FINAL_TABLE, \
-                            INTERHELICAL_GRAPH_R
+                            INTERHELICAL_GRAPH_R, RESULTS_FOLDER, PROCESSED_RESULTS_FOLDER, \
+                            SUMMARY_FOLDER, IMAGES_FOLDER
 
 __author__ = "A.J. Preto"
 __email__ = "martinsgomes.jose@gmail.com"
@@ -25,6 +26,13 @@ def call_all(circle_script, dynamics_script, interhelical_script, R_path = "Rscr
     "submit_cocomaps_interprosurf" and the R script are the more 
     time consuming steps
     """
+    create_folders = [RESULTS_FOLDER, PROCESSED_RESULTS_FOLDER, SUMMARY_FOLDER, IMAGES_FOLDER]
+    to_create_folders = []
+    for check_folder in create_folders:
+        if not os.path.isdir(check_folder):
+            to_create_folders.append(check_folder)
+    for current_folder in to_create_folders:
+        os.mkdir(current_folder)
     if download_interface_data == True:
         import submit_cocomaps_interprosurf
     import cocomaps_aligned
@@ -36,6 +44,7 @@ def call_all(circle_script, dynamics_script, interhelical_script, R_path = "Rscr
     import interactions
     import generate_summary
     import interhelical
+    import adapt_partner
 
     interhelical_graph_command = R_path + " " + interhelical_script
     os.system(interhelical_graph_command)

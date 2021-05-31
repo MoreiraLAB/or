@@ -15,7 +15,7 @@ from gpcr_variables import HBOND_VAR_GPCR, COCOMAPS_MOL_VAR, FINAL_TABLE, \
                             INTERPROSURF_START, INTERPROSURF_RESIDUES_VAR, DECIMAL_HOUSES, \
                             HB_TOTAL_PREFIX, SB_PREFIX, WEINSTEIN_NUMBERING_ORIGINAL, \
                             SUBSTRUCTURES_EVALUATED, COCOMAPS_START, SUMMARY_FOLDER, \
-                            SUMMARY_TABLE, COCOMAPS_MOL_VAR_2               
+                            SUMMARY_TABLE, COCOMAPS_MOL_VAR_2, STRUCTURAL_PDBS_FOLDER               
 __author__ = "A.J. Preto"
 __email__ = "martinsgomes.jose@gmail.com"
 __group__ = "Data-Driven Molecular Design"
@@ -349,8 +349,9 @@ def write_summary_table(receptor, partner, delimiter = ",", activate_consurf = F
 Apply over ".pdb" files on folder
 """
 failed = []
-for files in os.listdir(DEFAULT_FOLDER):
+for files in os.listdir(STRUCTURAL_PDBS_FOLDER):
     if files.endswith(".pdb"):
+        file_loc = DEFAULT_FOLDER + "/" + STRUCTURAL_PDBS_FOLDER + "/" + files  
         split_name = files.split("-")
         receptor, partner = split_name[0], split_name[1][0:-4]
         write_summary_table(receptor, partner)

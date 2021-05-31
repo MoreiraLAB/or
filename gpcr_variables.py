@@ -3,6 +3,12 @@
 """
 Define path names and variables
 """
+import os
+__author__ = "A.J. Preto"
+__email__ = "martinsgomes.jose@gmail.com"
+__group__ = "Data-Driven Molecular Design"
+__group_leader__ = "Irina S. Moreira"
+__project__ = "GPCRs"
 
 """
 Tables
@@ -28,7 +34,7 @@ R associated files
 CIRCLE_GRAPH_R = "GPCR_circlize.R"
 DYNAMICS_SCRIPT_R = "dynamic_analysis.R"
 INTERHELICAL_GRAPH_R = "interhelical.R"
-R_PATH = "C:/Users/marti/Anaconda3/pkgs/mro-base-3.4.3-0/Scripts/Rscript.exe"
+R_PATH = "Rscript"
 
 """
 URLs
@@ -79,11 +85,13 @@ SUBSTRUCTURES_EVALUATED = ["ICL1", "ICL2", "ICL3", "H8"]
 """
 Folder paths
 """
-DEFAULT_FOLDER = ""
+DEFAULT_FOLDER = os.getcwd()
 RESULTS_FOLDER = "results"
 PROCESSED_RESULTS_FOLDER = "processed_results"
 SUMMARY_FOLDER = "summary"
 SUMMARY_TABLE = "summary_table"
+IMAGES_FOLDER = "images"
+STRUCTURAL_PDBS_FOLDER = "structural_complexes"
 RMSIP_FILES_LOCATION = "DYNAMIC_ANALYSIS/RMSIP"
 RMSIP_IMAGES_LOCATION = "images/RMSIP_heatmap"
 RMSIP_BARIMAGES_LOCATION = "images/RMSIP_barplot"

@@ -4,10 +4,10 @@ This is the repository for Opiod Receptor Partners analysis code. By calling fol
 2. In the **gpcr_variables.py** script, change the **DEFAULT_FOLDER** variable into the users' location of the repository
 3. Create a conda environment: `conda create --name opioid_receptors R=3.6 python=3.9`
 4. Activate the conda environment: `conda activate opioid_receptors`
-5. Add some Python packages: `pip install pandas selenium numpy toolz bs4`
+5. Add some Python packages: `pip install pandas selenium numpy toolz bs4 requests biopython`
 6. Prepare for webscrapping:
 	- Confirm your installed Chrome version
-	- Download the corresponding chromedriver executable
+	- Download the corresponding chromedriver executable (check: https://chromedriver.chromium.org/downloads)
 	- Move the executable to the folder
 7. Add some R packages: `RScript  -e "install.packages(c('circlize','stringr','ggplot2','bio3d','tidyverse','ggrepel','ggsci','cowplot','svglite'), repos='https://cran.rstudio.com/')"`
 8. Run the pipeline: `python call.py`

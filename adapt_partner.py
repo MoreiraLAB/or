@@ -4,6 +4,11 @@
 Correct the partner numbering for interaction plot construction
 """
 
+__author__ = "A.J. Preto"
+__email__ = "martinsgomes.jose@gmail.com"
+__group__ = "Data-Driven Molecular Design"
+__group_leader__ = "Irina S. Moreira"
+__project__ = "GPCRs"
 
 import pandas as pd 
 import os
@@ -49,6 +54,4 @@ for files in os.listdir("processed_results"):
                 csv_writer.writerow(list(output_df))
                 for index, row in output_df.iterrows():
                     csv_writer.writerow(list(row))
-
-            #output_df.to_csv(output_loc, index = False, sep = ";", line_terminator='\n\n')
             print("Writing:", output_loc)

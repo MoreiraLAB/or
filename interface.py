@@ -10,7 +10,8 @@ import csv
 import raw_parser
 import gpcr_variables
 from gpcr_variables import DEFAULT_FOLDER, ALIGN_VECTORS, \
-                            DIMERS, PROCESSED_RESULTS_FOLDER
+                            DIMERS, PROCESSED_RESULTS_FOLDER, \
+                            STRUCTURAL_PDBS_FOLDER
 
 __author__ = "A.J. Preto"
 __email__ = "martinsgomes.jose@gmail.com"

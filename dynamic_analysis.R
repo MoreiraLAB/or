@@ -18,6 +18,8 @@ library(svglite)
 
 # Defining a few functions/constants --------------------------------------
 RUN_MODELS <- T
+home <- getwd()
+FINAL_MODEL_PATH <- paste(home, "/dynamics_complexes/", sep = "")
 
 #tm_idx_list object should be a list containing  a vector "start" 
 #containing the start of each TM and a vector "end" 
@@ -107,7 +109,7 @@ filter_relevant_group <- function(df) {
 }
 
 # Loading all PDB files ---------------------------------------------------
-all_files <- list.files(FINAL_MODEL_PATH,pattern = "*pdb",full.names = T)
+all_files <- list.files(FINAL_MODEL_PATH, pattern = "*pdb", full.names = T)
 
 dxr_monomers <- list()
 g_prot_complexes <- list()
@@ -302,9 +304,9 @@ flexibility_heatmap_no_label <- all_bc_scores_long %>%
   ggtitle("Flexibility change")
 
 flexibility_heatmap_no_label + 
-  ggsave(filename = "heatmap-dynamics-no-label.svg",width = 5,height = 3.5,dpi=600) + 
-  ggsave(filename = "heatmap-dynamics-no-label.pdf",width = 5,height = 3.5,dpi=600) +
-  ggsave(filename = "heatmap-dynamics-no-label.png",width = 5,height = 3.5,dpi=600)
+  ggsave(filename = "images/heatmap-dynamics-no-label.svg",width = 5,height = 3.5,dpi=600) + 
+  ggsave(filename = "images/heatmap-dynamics-no-label.pdf",width = 5,height = 3.5,dpi=600) +
+  ggsave(filename = "images/heatmap-dynamics-no-label.png",width = 5,height = 3.5,dpi=600)
 
 
 pc <- cmdscale(dist(all_bc_scores[,c(2,3,4,5,6,7)]))
@@ -330,9 +332,9 @@ dim_red_scatter <- ggplot(data = dim_red,aes(x = x,y = y,colour = Receptor)) +
   theme_minimal(base_size = THEME_MINIMAL_BASE_SIZE) +
   scale_size_continuous(guide = F,range = c(0.5,2))
 
-dim_red_scatter %>% ggsave(filename = "pca-dynamics.svg",width = 7,height = 5.5,
+dim_red_scatter %>% ggsave(filename = "images/pca-dynamics.svg",width = 7,height = 5.5,
                            dpi = 600) 
-dim_red_scatter %>% ggsave(filename = "pca-dynamics.pdf",width = 7,height = 5.5,
+dim_red_scatter %>% ggsave(filename = "images/pca-dynamics.pdf",width = 7,height = 5.5,
                            dpi = 600) 
 
 all_fluc_fold_changes_long <- all_fluc_fold_changes %>%
@@ -377,13 +379,13 @@ fluc_heatmap_no_label <- ggplot(data = all_fluc_fold_changes_long,aes(x = Recept
   ggtitle("Average fluctuation fold change")
 
 fluc_heatmap_no_label + 
-  ggsave(filename = "heatmap-fluc-no-label.pdf",width = 5,height = 3.5,dpi=600) + 
-  ggsave(filename = "heatmap-fluc-no-label.svg",width = 5,height = 3.5,dpi=600) +
-  ggsave(filename = "heatmap-fluc-no-label.png",width = 5,height = 3.5,dpi=600)
+  ggsave(filename = "images/heatmap-fluc-no-label.pdf",width = 5,height = 3.5,dpi=600) + 
+  ggsave(filename = "images/heatmap-fluc-no-label.svg",width = 5,height = 3.5,dpi=600) +
+  ggsave(filename = "images/heatmap-fluc-no-label.png",width = 5,height = 3.5,dpi=600)
 fluc_heatmap +
-  ggsave(filename = "heatmap-fluc.svg",width = 5,height = 3.5,dpi=600) +
-  ggsave(filename = "heatmap-fluc.pdf",width = 5,height = 3.5,dpi=600) +
-  ggsave(filename = "heatmap-fluc.png",width = 5,height = 3.5,dpi=600)
+  ggsave(filename = "images/heatmap-fluc.svg",width = 5,height = 3.5,dpi=600) +
+  ggsave(filename = "images/heatmap-fluc.pdf",width = 5,height = 3.5,dpi=600) +
+  ggsave(filename = "images/heatmap-fluc.png",width = 5,height = 3.5,dpi=600)
 
 
 final_plot <- plot_grid(
@@ -403,9 +405,9 @@ final_plot <- plot_grid(
             nrow = 1),
   labels = NULL,ncol = 1,
   rel_heights = c(1,1))
-final_plot %>% ggsave(filename = "final-dynamics.svg",height = 6.5,width = 8,dpi = 600)
-final_plot %>% ggsave(filename = "final-dynamics.pdf",height = 6.5,width = 8,dpi = 600)
-final_plot %>% ggsave(filename = "final-dynamics.png",height = 6.5,width = 8,dpi = 600)
+final_plot %>% ggsave(filename = "images/final-dynamics.svg",height = 6.5,width = 8,dpi = 600)
+final_plot %>% ggsave(filename = "images/final-dynamics.pdf",height = 6.5,width = 8,dpi = 600)
+final_plot %>% ggsave(filename = "images/final-dynamics.png",height = 6.5,width = 8,dpi = 600)
 
 final_plot_no_labels <- plot_grid(
   plot_grid(fluc_heatmap_no_label,

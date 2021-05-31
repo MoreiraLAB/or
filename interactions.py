@@ -9,7 +9,8 @@ import os
 import csv
 from gpcr_variables import WEINSTEIN_NUMBERING_ORIGINAL, RECEPTORS_LIST,\
                             PROCESSED_RESULTS_FOLDER, HB_DISTANCE, INTER_CHAIN_CA, \
-                            GPCRDB_ALIGNMENT, GPROTEIN_SUBSTRUCTURES
+                            GPCRDB_ALIGNMENT, GPROTEIN_SUBSTRUCTURES, \
+                            STRUCTURAL_PDBS_FOLDER
 
 __author__ = "A.J. Preto"
 __email__ = "martinsgomes.jose@gmail.com"
@@ -163,20 +164,21 @@ def x_50(DXR, res_number):
     full_weinstein = str(weinstein_count) + '.' + str(weinstein)
     return full_weinstein
 
-def write_distance_table(contact_distance = 5.0):
+def write_distance_table(contact_distance = 5.0, target_folder = STRUCTURAL_PDBS_FOLDER):
 
     """
     Write the output table correspondant to each .pdb file in the folder.
     Change "contact_distance" to your desired distance (in angstroms)
     """    
     import Bio.PDB
-    for files in os.listdir('.'):
+    for files in os.listdir(target_folder):
         if files.endswith('.pdb'):
             name = PROCESSED_RESULTS_FOLDER + "/weinstein_" + INTER_CHAIN_CA + "_" + files[0:-4]
-            structure = Bio.PDB.PDBParser().get_structure(name,files)
+            file_loc = target_folder + "/" + files
+            structure = Bio.PDB.PDBParser().get_structure(name, file_loc)
             model = structure[0]
-            res_names_A = get_residues(model,"A",files, start_dict = {"DOR": 34, "KOR": 52, "MOR": 62, "NOP": 43})
-            res_names_B = get_residues(model,"B",files, start_dict = {"Gq_6OIJ": 6, "Gq_6DDF": 6, "Gssh": 8, "Gslo": 8, \
+            res_names_A = get_residues(model,"A", files, start_dict = {"DOR": 34, "KOR": 52, "MOR": 62, "NOP": 43})
+            res_names_B = get_residues(model,"B", files, start_dict = {"Gq_6OIJ": 6, "Gq_6DDF": 6, "Gssh": 8, "Gslo": 8, \
                                                                         "Arr2_6PWC": 6, "Arr3_6PWC": 7,"Arr2_6U1N": 5, "Arr3_6U1N": 6, \
                                                                         "G11_6OIJ": 6, "G14_6OIJ": 4, "G14_6DDF": 4, \
                                                                         "G15_6OIJ": 9, "G12_6DDF": 25, "G12_6OIJ": 25, \

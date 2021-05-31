@@ -12,7 +12,8 @@ from glob import glob
 from bs4 import BeautifulSoup
 from gpcr_variables import COCOMAPS_SUBMIT, COCOMAPS_OUTPUT, \
 							INTERPROSURF, DEFAULT_EMAIL, STRUCTURAL_FEATURES, \
-							INTERPROSURF_START, RESULTS_FOLDER, COCOMAPS_START
+							INTERPROSURF_START, RESULTS_FOLDER, COCOMAPS_START, \
+							STRUCTURAL_PDBS_FOLDER
 requests.packages.urllib3.disable_warnings()
 
 __author__ = "J.G. Almeida & A.J. Preto"
@@ -26,8 +27,6 @@ if 'win' in sys.platform:
 else:
 	sys_sep = '/'
 
-chrome_driver = CHROMEDRIVER
-phantom_driver = PHANTOMJS
 cocomaps_url = COCOMAPS_SUBMIT
 cocomaps_url_finished = COCOMAPS_OUTPUT
 interprosurf_url = INTERPROSURF
@@ -89,7 +88,7 @@ def cocomaps_digger(pdb_file,identifier,download_path, sleep_time = 5):
 	options = Options()
 	options.add_argument('--headless')
 	options.add_argument('--disable-gpu')
-	driver = webdriver.Chrome(chrome_options=options)
+	driver = webdriver.Chrome(chrome_options = options)
 	try:
 		driver.get(cocomaps_url)
 		assert "CoCoMaps" in driver.title
@@ -203,11 +202,11 @@ def wraper(in_folder,download_path):
 	"""
 	Initialize chromedriver instance, make sure the adequate chromedriver is in place
 	"""
-	all_pdbs = parse_pdb_folder(in_folder)
+	all_pdbs = parse_pdb_folder(STRUCTURAL_PDBS_FOLDER)
 	options = Options()
 	options.add_argument('--headless')
 	options.add_argument('--disable-gpu')
-	driver = webdriver.Chrome(chrome_options=options)
+	driver = webdriver.Chrome(chrome_options = options)
 	if os.path.isdir(download_path) == False:
 		sys.exit("Input folder does not exist.")
 	if os.path.isdir(download_path) == False:

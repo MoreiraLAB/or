@@ -13,14 +13,13 @@ library(stringr)
 circle_graph_builder <- function(distance,file_name,len,TM1,ICL1,TM2,TM3,ICL2,TM4,TM5,ICL3,TM6,TM7,H8,partner_info,partner_name){
   
   ###---Loading the table---###
-  df = read.table(file_name, sep=';',header = TRUE, stringsAsFactors = FALSE, row.names=1, check.names = FALSE)
+  df = read.table(paste("processed_results/", file_name, sep = ""), sep=';',header = TRUE, stringsAsFactors = FALSE, row.names=1, check.names = FALSE)
   df <-data.matrix(df)
   cut_off_list <- list()
   
   ###---Turn table values into binaries depending on distance cutoff value---###
-  df <- ifelse(df<distance,1,df)
-  df <- ifelse(df>distance,0,df)
-  
+  df <- ifelse(df<distance, 1, df)
+  df <- ifelse(df>distance, 0, df)
   ###---Assign colors by cutoff value of distance---#
   colorizer <- function(TM1,ICL1,TM2,TM3,ICL2,TM4,TM5,ICL3,TM6,TM7,H8){
     
@@ -124,7 +123,7 @@ circle_graph_builder <- function(distance,file_name,len,TM1,ICL1,TM2,TM3,ICL2,TM
   ###----------------------###
   
   ###---Open the file for saving---###
-  file_name <- paste(target_dir,file_name,'.svg')
+  file_name <- paste(target_dir,file_name,'.svg', sep = "")
   new_file_name <- gsub(".csv","",file_name) 
   svg(new_file_name, width=11, height = 9)
   ###---Plot the Diagram using the color vector for sector filling---#
@@ -187,7 +186,7 @@ run_graph <- function(input_target, input_csv_file, receptors_list, sub_list, di
   ###---Load the weinstein numbering template---###
   template <- read.table(input_csv_file, sep = ";")
   partner_template <- read.table(partner_table, sep = ";")
-  current_receptor <- strsplit(strsplit(input_target,split = "-")[[1]][1],split = "_")[[1]][receptor_entry_split]
+  current_receptor <- strsplit(strsplit(input_target, split = "-")[[1]][1],split = "_")[[1]][receptor_entry_split]
   pseudo_dictionary_partner <- vector(mode = "list", length = 0)
   ###---Order the partner information vectors---###
   for (partner_row in 1:nrow(partner_template)){
@@ -230,12 +229,12 @@ run_graph <- function(input_target, input_csv_file, receptors_list, sub_list, di
                        pseudo_dictionary_partner, partner_name)}
 
 ###Variable Initialization-----------------------------------###
-home = 'C:/Users/marti/OneDrive/Desktop/silverio/processed_results'
-setwd(home)
-target_dir = 'C:/Users/marti/OneDrive/Desktop/silverio/images/' 
-weinstein_template <- "C:/Users/marti/OneDrive/Desktop/silverio/templates/weinstein_numbering_opioids.csv"
-weinstein_template_ARR <- "C:/Users/marti/OneDrive/Desktop/silverio/templates/arrestins_final_opioids.csv"
-weinstein_template_gprot <- "C:/Users/marti/OneDrive/Desktop/silverio/templates/g_proteins_final_opioids.csv"
+
+home <- getwd()
+target_dir <- paste(home, '/images/', sep = "") 
+weinstein_template <- paste(home, "/templates/weinstein_numbering_opioids.csv", sep = "")
+weinstein_template_ARR <- paste(home, "/templates/arrestins_final_opioids.csv", sep = "")
+weinstein_template_gprot <- paste(home, "/templates/g_proteins_final_opioids.csv", sep = "")
 DR_list <- c("DOR", "KOR", "MOR", "NOP")
 ARR_list <- c("Arr2", "Arr3","Arr2_6U1N","Arr3_6U1N","Arr2_6PWC","Arr3_6PWC")
 only_loops <- c("ICL1","ICL2","ICL3")
@@ -244,12 +243,13 @@ distance_value = 8
 
 ###Run for all .csv "weinstein" files in the folder--------------###
 ###Do not forget to erase the output_interacts file--------------###
-for(file in list.files(getwd(), pattern = glob2rx('weinstein_inter_chain_*.csv'))){
-  interact <- cutoff_table_builder(distance_value,file)
-  write.table(matrix(interact,nrow = 1),'output_interacts.csv', append = TRUE, sep =';',col.names = FALSE,row.names = FALSE)
+for(file in list.files(paste(home, "/processed_results", sep = ""), pattern = glob2rx('adapted_partner_weinstein_inter_chain_*.csv'))){
+  loc_file = paste(home, "/processed_results/", file, sep = "")
+  interact <- cutoff_table_builder(distance_value, loc_file)
+  write.table(matrix(interact,nrow = 1),'summary/output_interacts.csv', append = TRUE, sep =';', col.names = FALSE, row.names = FALSE)
   partner_name <- strsplit(strsplit(file,"-")[[1]][2],".csv")[[1]][1]
   if(partner_name %in% ARR_list){partner_file <- weinstein_template_ARR
-  run_graph(file,weinstein_template, DR_list, TM_list, distance_value, partner_file, partner_name, receptor_entry_split = 6)}
+  run_graph(file, weinstein_template, DR_list, TM_list, distance_value, partner_file, partner_name, receptor_entry_split = 6)}
   else{partner_file <- weinstein_template_gprot
-  run_graph(file,weinstein_template, DR_list, TM_list, distance_value, partner_file, partner_name, receptor_entry_split = 6)}
+  run_graph(file, weinstein_template, DR_list, TM_list, distance_value, partner_file, partner_name, receptor_entry_split = 6)}
 }

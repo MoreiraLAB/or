@@ -10,6 +10,7 @@
 ###__group_leader__ = "Irina S. Moreira"---------------------###
 ###__project__ = "GPCRs"-------------------------------------###
 
+library(ggplot2)
 change_header <- function(input_cols){
   col_names <- c()
   for (name in input_cols){

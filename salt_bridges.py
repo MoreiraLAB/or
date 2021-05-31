@@ -8,7 +8,8 @@ import numpy as np
 import os
 import csv
 import gpcr_variables
-from gpcr_variables import WEINSTEIN_NUMBERING_ORIGINAL, RECEPTORS_LIST, PROCESSED_RESULTS_FOLDER, SB_DISTANCE
+from gpcr_variables import WEINSTEIN_NUMBERING_ORIGINAL, RECEPTORS_LIST, \
+                            PROCESSED_RESULTS_FOLDER, SB_DISTANCE, STRUCTURAL_PDBS_FOLDER
 
 __author__ = "A.J. Preto"
 __email__ = "martinsgomes.jose@gmail.com"
@@ -190,20 +191,21 @@ def x_50(DXR, res_number):
     full_weinstein = str(weinstein_count) + '.' + str(weinstein)
     return full_weinstein
 
-def write_distance_table(contact_distance = 4.0):
+def write_distance_table(contact_distance = 4.0, target_folder = STRUCTURAL_PDBS_FOLDER):
 
     """
     Write the output table correspondant to each .pdb file in the folder.
     Change "contact_distance" to your desired distance (in angstroms)
     """    
     import Bio.PDB
-    for files in os.listdir('.'):
+    for files in os.listdir(target_folder):
         if files.endswith('.pdb'):
+            file_loc = target_folder + "/" + files
             name = PROCESSED_RESULTS_FOLDER + "/novel_sb_" + files[0:-4]
-            structure = Bio.PDB.PDBParser().get_structure(name,files)
+            structure = Bio.PDB.PDBParser().get_structure(name, file_loc)
             model = structure[0]
-            res_names_A = get_residues(model,"A",files)
-            res_names_B = get_residues(model,"B",files)
+            res_names_A = get_residues(model,"A",file_loc)
+            res_names_B = get_residues(model,"B",file_loc)
             dist_matrix = calc_dist_matrix(model["A"], model["B"])
             csv_writer(dist_matrix,name,res_names_A,res_names_B)
 
