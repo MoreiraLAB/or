@@ -3,8 +3,8 @@ This is the repository for Opiod Receptor Partners analysis code. By calling the
 
 # Folder structure
 The **pdb** files containing the dimeric structures should be in the root folder. Subdirectories should be:
-	- results
-	- processed_results
-	- images
-	- summary
-	- templates
+- results
+- processed_results
+- images
+- summary
+- templates
