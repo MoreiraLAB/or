@@ -33,12 +33,6 @@ INTERHELICAL_GRAPH_R = "interhelical.R"
 R_PATH = "C:/Users/marti/Anaconda3/pkgs/mro-base-3.4.3-0/Scripts/Rscript.exe"
 
 """
-Executables
-"""
-CHROMEDRIVER = r'C:\Users\A.J. Preto\Documents\chromedriver_win32\chromedriver.exe'
-PHANTOMJS = r'C:\Users\A.J. Preto\Documents\phantomjs-2.1.1-windows\phantomjs-2.1.1-windows\bin\phantomjs.exe'
-
-"""
 URLs
 """
 COCOMAPS_SUBMIT = 'https://www.molnac.unisa.it/BioTools/cocomaps/'

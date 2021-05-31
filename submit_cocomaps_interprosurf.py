@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -12,8 +14,16 @@ from glob import glob
 import argparse
 from bs4 import BeautifulSoup
 import gpcr_variables
-from gpcr_variables import CHROMEDRIVER, PHANTOMJS, COCOMAPS_SUBMIT, COCOMAPS_OUTPUT, INTERPROSURF, DEFAULT_EMAIL, STRUCTURAL_FEATURES, INTERPROSURF_START, RESULTS_FOLDER, COCOMAPS_START
+from gpcr_variables import COCOMAPS_SUBMIT, COCOMAPS_OUTPUT, \
+							INTERPROSURF, DEFAULT_EMAIL, STRUCTURAL_FEATURES, \
+							INTERPROSURF_START, RESULTS_FOLDER, COCOMAPS_START
 requests.packages.urllib3.disable_warnings()
+
+__author__ = "J.G. Almeida & A.J. Preto"
+__email__ = "martinsgomes.jose@gmail.com"
+__group__ = "Data-Driven Molecular Design"
+__group_leader__ = "Irina S. Moreira"
+__project__ = "GPCRs"
 
 if 'win' in sys.platform:
 	sys_sep = '\\'
@@ -27,17 +37,29 @@ cocomaps_url_finished = COCOMAPS_OUTPUT
 interprosurf_url = INTERPROSURF
 
 def open_lines(file):
+
+	"""
+	Open and read an input file
+	"""
 	o = open(file)
 	lines = o.readlines()
 	o.close()
 	return lines
 
-def open_write(file_name,data):
+def open_write(file_name, data):
+
+	"""
+	Open an output file and write the data into it
+	"""
 	o = open(file_name,'w')
 	o.write(data)
 	o.close()
 
 def get_atoms(lines):
+
+	"""
+	Isolate the atoms in the pdb file
+	"""
 	atom_lines = []
 	for line in lines:
 		if line[0:4] == 'ATOM':
@@ -45,6 +67,10 @@ def get_atoms(lines):
 	return atom_lines
 
 def get_chains(atom_lines):
+
+	"""
+	Identify the individual chains in the pdb
+	"""
 	chains = set()
 	for line in atom_lines:
 		chain = line[21]
@@ -53,6 +79,10 @@ def get_chains(atom_lines):
 	return sorted(chains)
 
 def cocomaps_digger(pdb_file,identifier,download_path, sleep_time = 5):
+
+	"""
+	Retrieve CoCoMaps data with selenium
+	"""
 	print("CoCoMaps data is being retrieved...")
 	atoms = toolz.pipe(pdb_file,open_lines,get_atoms)
 	chains = get_chains(atoms)
@@ -107,6 +137,10 @@ def cocomaps_digger(pdb_file,identifier,download_path, sleep_time = 5):
 	
 
 def interprosurf_digger(pdb_file,identifier,download_path):
+
+	"""
+	Retrieve pdb data
+	"""
 	print("InterProSurf data is being retrieved...")
 	complex_col = STRUCTURAL_FEATURES
 	all_data = []
@@ -159,18 +193,21 @@ def interprosurf_digger(pdb_file,identifier,download_path):
 	driver.switch_to_window(driver.window_handles[0])
 
 def parse_pdb_folder(folder):
+
+	"""
+	Identify all *pdb files in folder
+	"""
 	folder = folder.rstrip(sys_sep)
 	reg = folder + sys_sep + '*.pdb'
 	all_pdbs = glob(reg)
 	return sorted(all_pdbs)
 
 def wraper(in_folder,download_path):
-	all_pdbs = parse_pdb_folder(in_folder)
-	#print(all_pdbs)
-	#all_pdbs = ['C:\\Users\\marti\\OneDrive\\Desktop\\silverio\\DOR-G14_6CMO.pdb']
-	#import sys
-	#sys.exit()
 
+	"""
+	Initialize chromedriver instance, make sure the adequate chromedriver is in place
+	"""
+	all_pdbs = parse_pdb_folder(in_folder)
 	options = Options()
 	options.add_argument('--headless')
 	options.add_argument('--disable-gpu')
@@ -187,18 +224,8 @@ def wraper(in_folder,download_path):
 		pre_identifier = pdb.split(sys_sep)[-1]
 		identifier = pre_identifier[:-4]
 		print("Current PDB:",identifier)
-		#interprosurf_digger(pdb,identifier,download_path)
 		success, current_sleep_time, output = False, 5, None
 		output = cocomaps_digger(pdb,identifier,download_path, sleep_time = current_sleep_time)
-		"""
-		while success == False and output == None:
-			try:
-				output = cocomaps_digger(pdb,identifier,download_path, sleep_time = current_sleep_time)
-				success = True
-			except:
-				current_sleep_time += 5
-				continue
-		"""
 		print("Data for",identifier,"has been retrieved!")
 	driver.quit()
 
