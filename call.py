@@ -60,5 +60,5 @@ R_executable = R_PATH
 Rscript_interhelical = INTERHELICAL_GRAPH_R
 Rscript_dynamics = DYNAMICS_SCRIPT_R
 call_all(Rscript_circle, Rscript_dynamics, Rscript_interhelical, \
-                R_path = R_executable, download_interface_data = False)
+                R_path = R_executable, download_interface_data = True)
 
