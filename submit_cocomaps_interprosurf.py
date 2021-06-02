@@ -22,7 +22,10 @@ __group__ = "Data-Driven Molecular Design"
 __group_leader__ = "Irina S. Moreira"
 __project__ = "GPCRs"
 
-if 'win' in sys.platform:
+if 'darwin' in sys.platform:
+	sys_sep = '/'
+	CHROMEDRIVER_PATH = DEFAULT_FOLDER + sys_sep + "chromedriver"
+elif 'win' in sys.platform:
 	sys_sep = '\\'
 	CHROMEDRIVER_PATH = DEFAULT_FOLDER + sys_sep + "chromedriver.exe"
 else:
