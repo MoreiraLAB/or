@@ -78,7 +78,7 @@ def get_chains(atom_lines):
 	chains = list(chains)
 	return sorted(chains)
 
-def cocomaps_digger(pdb_file,identifier,download_path, sleep_time = 5):
+def cocomaps_digger(pdb_file,identifier,download_path, sleep_time = 15):
 
 	"""
 	Retrieve CoCoMaps data with selenium
@@ -94,47 +94,39 @@ def cocomaps_digger(pdb_file,identifier,download_path, sleep_time = 5):
 	options.add_argument('--headless')
 	options.add_argument('--disable-gpu')
 	driver = webdriver.Chrome(CHROMEDRIVER_PATH, chrome_options = options)
-	try:
-		driver.get(cocomaps_url)
-		assert "CoCoMaps" in driver.title
-		driver.find_elements_by_name("type_pdb")[1].click()
-		for param in params:
-			pdb = driver.find_element_by_name(param)
-			pdb.send_keys(params[param])
-		driver.find_element_by_name("submit").click()
-		time.sleep(sleep_time)
-		download_list = driver.find_elements_by_class_name("downloadTable")[3:]
+	driver.get(cocomaps_url)
+	assert "CoCoMaps" in driver.title
+	driver.find_elements_by_name("type_pdb")[1].click()
+	for param in params:
+		pdb = driver.find_element_by_name(param)
+		pdb.send_keys(params[param])
+	driver.find_element_by_name("submit").click()
+	time.sleep(sleep_time)
+	download_list = driver.find_elements_by_class_name("downloadTable")[3:]
 
-		for i in range(0,len(download_list)):
-			curr_download = download_list[i]
-			url_name = curr_download.get_attribute("href")
-			new_name = download_path + sys_sep + COCOMAPS_START + '_' + '_'.join([identifier,new_names[i]]) + '.txt'
-			r = requests.get(url_name,verify = False)
-			with open(new_name, "wb") as table:
-				table.write(r.content)
-
-		dist_element = driver.find_element_by_xpath('//a[@target ="_table"]')
-		dist_element.click()
-		time.sleep(sleep_time)
-		while len(driver.window_handles) == 1:
-			time.sleep(1)
-		driver.switch_to_window(driver.window_handles[1])
-		download_dist = driver.find_element_by_class_name("downloadTable")
-
-		table_url = download_dist.get_attribute("href")
-		r = requests.get(table_url,verify = False)
-		table_name = download_path + sys_sep + COCOMAPS_START + '_' + identifier + "_dist_table.txt"
-		with open(table_name, "wb") as table:
+	for i in range(0,len(download_list)):
+		curr_download = download_list[i]
+		url_name = curr_download.get_attribute("href")
+		new_name = download_path + sys_sep + COCOMAPS_START + '_' + '_'.join([identifier,new_names[i]]) + '.txt'
+		r = requests.get(url_name,verify = False)
+		with open(new_name, "wb") as table:
 			table.write(r.content)
-		driver.close()
-		driver.quit()
-		driver.switch_to_window(driver.window_handles[0])
-		return "success"
-	except:
-		driver.close()
-		driver.quit()
-		driver.switch_to_window(driver.window_handles[0])
-		return None
+
+	dist_element = driver.find_element_by_xpath('//a[@target ="_table"]')
+	dist_element.click()
+	time.sleep(sleep_time)
+	while len(driver.window_handles) == 1:
+		time.sleep(time_sleep)
+	driver.switch_to_window(driver.window_handles[1])
+	time.sleep(sleep_time)
+	download_dist = driver.find_element_by_class_name("downloadTable")
+	table_url = download_dist.get_attribute("href")
+	r = requests.get(table_url,verify = False)
+	table_name = download_path + sys_sep + COCOMAPS_START + '_' + identifier + "_dist_table.txt"
+	with open(table_name, "wb") as table:
+		table.write(r.content)
+	driver.close()
+	driver.switch_to_window(driver.window_handles[0])
 	
 
 def interprosurf_digger(pdb_file,identifier,download_path):
