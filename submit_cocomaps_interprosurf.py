@@ -103,6 +103,7 @@ def cocomaps_digger(pdb_file,identifier,download_path, sleep_time = 5):
 			pdb.send_keys(params[param])
 		driver.find_element_by_name("submit").click()
 		time.sleep(sleep_time)
+		download_list = driver.find_elements_by_class_name("downloadTable")[3:]
 
 		for i in range(0,len(download_list)):
 			curr_download = download_list[i]
@@ -207,7 +208,7 @@ def wraper(in_folder,download_path):
 	"""
 	Initialize chromedriver instance, make sure the adequate chromedriver is in place
 	"""
-	all_pdbs = parse_pdb_folder(STRUCTURAL_PDBS_FOLDER)
+	all_pdbs = parse_pdb_folder(DEFAULT_FOLDER + sys_sep + STRUCTURAL_PDBS_FOLDER)
 	options = Options()
 	options.add_argument('--headless')
 	options.add_argument('--disable-gpu')
