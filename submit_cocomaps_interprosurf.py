@@ -78,7 +78,7 @@ def get_chains(atom_lines):
 	chains = list(chains)
 	return sorted(chains)
 
-def cocomaps_digger(pdb_file,identifier,download_path, sleep_time = 15):
+def cocomaps_digger(pdb_file,identifier,download_path, sleep_time = 10):
 
 	"""
 	Retrieve CoCoMaps data with selenium
@@ -217,8 +217,9 @@ def wraper(in_folder,download_path):
 		pre_identifier = pdb.split(sys_sep)[-1]
 		identifier = pre_identifier[:-4]
 		print("Current PDB:",identifier)
+		interprosurf_digger(pdb,identifier,download_path)
 		success, current_sleep_time, output = False, 5, None
-		output = cocomaps_digger(pdb,identifier,download_path, sleep_time = current_sleep_time)
+		output = cocomaps_digger(pdb,identifier, download_path, sleep_time = current_sleep_time)
 		print("Data for",identifier,"has been retrieved!")
 	driver.quit()
 
