@@ -215,7 +215,7 @@ def evaluate_substructures_sbridges(input_file, input_receptor, delimiter = ",")
                                             single_substructure_sbridges(opened_file, HX8)
     return SB_ICL1, SB_ICL2, SB_ICL3, SB_HX8
 
-def write_summary_table(receptor, partner, delimiter = ",", activate_consurf = False):
+def write_summary_table(receptor, partner, delimiter = ","):
 
     """
     Write a summary table for each complex
@@ -294,30 +294,6 @@ def write_summary_table(receptor, partner, delimiter = ",", activate_consurf = F
         hb_sb_row = "total HB/SB" + delimiter + str(hb_sb) + "\n"
         final_table.write(hb_sb_row)
 
-        """
-        Total Consurf value
-        """
-        if activate_consurf == True:
-            from process_consurf import return_consurf_values, match_consurf_tables
-            try:
-                complex_name = receptor + "-" + partner + ".pdb"
-                consurf_receptor, consurf_partner = return_consurf_values(complex_name)
-                consurf_values = match_consurf_tables(consurf_receptor, consurf_partner, complex_name)
-                total_consurf_row = "Average total Consurf" + delimiter + str(consurf_values["total"]) + "\n"
-                final_table.write(total_consurf_row)
-                
-                """
-                Consurf values
-                """
-                for substructure in SUBSTRUCTURES_EVALUATED:
-                    substructure_row = "Consurf grade average: " + substructure + delimiter + str(consurf_values[substructure]) + "\n"
-                    final_table.write(substructure_row)
-            except:
-                total_consurf_row = "Average total Consurf" + delimiter + "" + "\n"
-                for substructure in SUBSTRUCTURES_EVALUATED:
-                    substructure_row = "Consurf grade average: " + substructure + delimiter + "" + "\n"
-                    final_table.write(substructure_row)
-                final_table.write(total_consurf_row)
         """
         Interprosurf ASA values
         """
