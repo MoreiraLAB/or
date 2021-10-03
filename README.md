@@ -30,4 +30,5 @@ The **pdb** files containing the dimeric structures should be in the root folder
 - templates
 - dymeric_complexes
 - structural_complexes
+
 After deploying the pipeline, all this folders should, however, be automatically created.
