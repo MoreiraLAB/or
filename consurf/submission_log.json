@@ -1,0 +1,20 @@
+[
+  {
+    "input_file": "/Users/irinamoreira/Downloads/Git_moreiralab/or_final_v12/consurf/input_pdb/DOR-Arr2_6PWC.pdb",
+    "job_name": "DOR-Arr2_6PWC",
+    "chain": "A",
+    "email": "irm2223@gmail.com",
+    "server": "https://consurf.tau.ac.il/",
+    "status": "submitted_or_ready",
+    "job_url": "https://consurf.tau.ac.il/progress/?number=1780951087",
+    "final_url": "https://consurf.tau.ac.il/progress/?number=1780951087",
+    "clicked_submit": "True",
+    "run_number": "1780951087",
+    "uploaded": "True",
+    "job_name_filled": "True",
+    "email_filled": "True",
+    "chain_filled": "True",
+    "alerts": "",
+    "note": ""
+  }
+]

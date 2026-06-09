@@ -1,0 +1,33 @@
+__pycache__/
+*.pyc
+.DS_Store
+
+# Runtime outputs
+processed_results/
+summary/
+images/
+
+# ConSurf runtime/output
+consurf/results_manual/
+consurf/results_auto/
+consurf/debug/
+consurf/downloads/
+consurf/input_pdb/
+
+# Archives and papers
+*.tar.gz
+*.tgz
+*.zip
+*.pdf
+
+# R/session files
+.RData
+.Rhistory
+
+# Browser/driver
+chromedriver
+chromedriver.exe
+
+# Local scratch
+or_fix_pack/
+.repair_backup/

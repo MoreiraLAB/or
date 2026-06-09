@@ -1,0 +1,44 @@
+name: opioid_receptors_rebuilt
+
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+
+dependencies:
+  - python=3.10
+  - pip
+
+  # Core Python
+  - pandas
+  - numpy
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - pyyaml
+  - openpyxl
+
+  # Structural biology
+  - biopython
+  - prody
+
+  # Web / parsing / ConSurf
+  - requests
+  - beautifulsoup4
+  - lxml
+  - selenium>=4.25
+
+  # R / Bio3D backend
+  - r-base>=4.3
+  - r-bio3d
+  - r-tidyverse
+  - r-ggplot2
+  - r-ggrepel
+  - r-cowplot
+  - r-svglite
+  - r-optparse
+
+  # Use pip for newer webdriver-manager
+  - pip:
+      - webdriver-manager>=4.0.2
