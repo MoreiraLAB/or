@@ -11,6 +11,7 @@ import pandas as pd
 from Bio.PDB import PDBParser, NeighborSearch
 from Bio.PDB.Polypeptide import is_aa
 from opioid_metadata import AA1, AA_GROUPS, bw_label, receptor_domain, parse_complex_name, partner_class, load_bw_numbering, load_partner_domain_maps, ensure_dirs, ROOT
+from residue_numbering import pdb_to_metadata_residue
 
 HEAVY = {'C','N','O','S','P'}
 
@@ -65,13 +66,16 @@ def interface_contacts(pdb_path: Path, cutoff: float = 8.0) -> pd.DataFrame:
         for dist, pr in sorted(hits, key=lambda x:x[0])[:6]:
             rnum = int(rr.id[1]); pnum = int(pr.id[1])
             raa3 = rr.resname; paa3 = pr.resname
+            partner_chain = pr.get_parent().id
+            pnum_meta = pdb_to_metadata_residue(pdb_path.name, partner_chain, pnum)
             rows.append({
                 'complex': pdb_path.stem, 'receptor': receptor, 'partner': partner, 'partner_base': partner_base,
-                'partner_class': partner_class(partner), 'receptor_chain': rec_chain, 'partner_chain': pr.get_parent().id,
+                'partner_class': partner_class(partner), 'receptor_chain': rec_chain, 'partner_chain': partner_chain,
                 'receptor_resnum': rnum, 'receptor_resname': raa3, 'receptor_aa': AA1.get(raa3, 'X'),
                 'receptor_bw': bw_label(receptor, rnum, bw_df), 'receptor_domain': receptor_domain(receptor, rnum, bw_df),
-                'partner_resnum': pnum, 'partner_resname': paa3, 'partner_aa': AA1.get(paa3, 'X'),
-                'partner_domain': pdomains.get((partner_base, pnum), pdomains.get((partner, pnum), 'Not defined domain')),
+                'partner_resnum': pnum, 'partner_resnum_metadata': pnum_meta,
+                'partner_resname': paa3, 'partner_aa': AA1.get(paa3, 'X'),
+                'partner_domain': pdomains.get((partner_base, pnum_meta), pdomains.get((partner, pnum_meta), 'Not defined domain')),
                 'distance_angstrom': round(dist,3)
             })
     return pd.DataFrame(rows)
