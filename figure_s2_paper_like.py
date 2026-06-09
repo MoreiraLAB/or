@@ -9,12 +9,29 @@ OUT.mkdir(exist_ok=True)
 
 AA_ORDER = list("ACDEFGHIKLMNPQRSTVWY")
 
+# Paper-like qualitative palette: one visible colour per amino acid.
+# Chosen to keep acidic/basic/aromatic/nonpolar residues visually separable.
 AA_COLORS = {
-    "A": "#8dd3c7", "C": "#ffffb3", "D": "#fb8072", "E": "#fb8072",
-    "F": "#bebada", "G": "#80b1d3", "H": "#b3de69", "I": "#fccde5",
-    "K": "#bc80bd", "L": "#ccebc5", "M": "#ffed6f", "N": "#fdb462",
-    "P": "#d9d9d9", "Q": "#fdb462", "R": "#bc80bd", "S": "#b3de69",
-    "T": "#b3de69", "V": "#fccde5", "W": "#bebada", "Y": "#bebada",
+    "A": "#66C2A5",
+    "C": "#FFD92F",
+    "D": "#E41A1C",
+    "E": "#FB6A4A",
+    "F": "#984EA3",
+    "G": "#A6CEE3",
+    "H": "#377EB8",
+    "I": "#B2DF8A",
+    "K": "#1F78B4",
+    "L": "#33A02C",
+    "M": "#006D2C",
+    "N": "#FDBF6F",
+    "P": "#BDBDBD",
+    "Q": "#FF7F00",
+    "R": "#08519C",
+    "S": "#CAB2D6",
+    "T": "#6A3D9A",
+    "V": "#FB9A99",
+    "W": "#4B0082",
+    "Y": "#8E44AD",
 }
 
 FAMILY_ORDER = ["Arr 6PWC", "Arr 6U1N", "Gi/o", "Gs", "Gq/11", "G12/13", "Other"]
@@ -118,7 +135,7 @@ def plot_side(df, side, outname):
 
     fams = counts.drop_duplicates("complex").set_index("complex")["family"].reindex(order)
 
-    fig, ax = plt.subplots(figsize=(22, 8))
+    fig, ax = plt.subplots(figsize=(22, 9.5))
     bottom = [0] * len(pivot)
 
     x = range(len(pivot))
@@ -166,14 +183,17 @@ def plot_side(df, side, outname):
 
     ax.legend(
         title="Residue",
-        bbox_to_anchor=(1.005, 1),
-        loc="upper left",
+        bbox_to_anchor=(0.5, -0.28),
+        loc="upper center",
         frameon=False,
-        ncol=1,
+        ncol=10,
         fontsize=8,
+        title_fontsize=9,
+        columnspacing=1.0,
+        handlelength=1.2,
     )
 
-    fig.tight_layout()
+    fig.subplots_adjust(bottom=0.28, top=0.88, right=0.98)
     fig.savefig(OUT / f"{outname}.png", dpi=300)
     fig.savefig(OUT / f"{outname}.svg")
     plt.close(fig)
