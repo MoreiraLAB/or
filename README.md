@@ -520,25 +520,6 @@ python call.py --paper-figure3 --skip-structural --skip-interhelical --skip-figu
 ```
 
 
-## Troubleshooting
-
-### `zsh: no matches found: https://...progress/?number=...`
-
-Quote URLs containing `?`:
-
-```bash
-python consurf_auto.py --download-current-url "https://consurf.tau.ac.il/progress/?number=1780947241" --job-name DOR
-```
-
-### `Your request has violated HPC secure policy`
-
-Do not submit all receptor-partner complexes automatically. Use the default 4 receptor-representative jobs only, or submit one job manually at a time.
-
-### `The files are being zipped. Please wait.`
-
-The job finished but the archive is not ready yet. Wait and rerun the watcher or the Selenium downloader.
-
-### `stand_alone_consurf_1.05.tar.gz`
 
 This is the standalone software archive from the ConSurf menu, not a job result. Delete it with:
 
